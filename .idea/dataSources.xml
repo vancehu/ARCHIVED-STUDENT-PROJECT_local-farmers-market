@@ -20,11 +20,11 @@
       <jdbc-url>jdbc:derby://localhost:1527/LocalFarmersMarket</jdbc-url>
       <default-dialect>MySQL</default-dialect>
     </data-source>
-    <data-source source="LOCAL" name="@159.203.142.96" uuid="5f89c59f-798a-4ba1-abce-ad083153a969">
+    <data-source source="LOCAL" name="@localhost" uuid="5f89c59f-798a-4ba1-abce-ad083153a969">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://159.203.142.96:33306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:33306</jdbc-url>
       <default-dialect>MySQL</default-dialect>
       <driver-properties>
         <property name="autoReconnect" value="true" />
