@@ -1,0 +1,139 @@
+<div class="container">
+    <h1 class="title">My Profile
+    </h1>
+
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="back()">Back</button>
+    <div class="row padding-20">
+
+        <div class="col-md-2">
+            <h4>See also:</h4>
+            <p>
+                <a href="#/notifications/1"><i class="fa fa-envelope" aria-hidden="true"></i> My Notifications</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/addProduct"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/myProducts/1"><i class="fa fa-briefcase" aria-hidden="true"></i> My Products</a>
+            </p>
+            <p>
+                <a href="#/orders/1"><i class="fa fa-sticky-note" aria-hidden="true"></i> My Orders</a>
+            </p>
+        </div>
+        <div class="col-md-10">
+            <form name="form">
+                <div class="form-group">
+                    <div>
+                        <label>My Avatar</label>
+                    </div>
+
+                    <img class="avatar clickable" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB" ng-src="{{uploadLink||$root.user.imgLink | getImage}}"/>
+                    <div class="upload-panel">
+                        <div>
+                            <button class="btn btn-primary" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB">Upload new image</button>
+                            jpg or png file &lt;255kb
+                        </div>
+                        <div>
+                            <button ng-disabled="!uploadLink" ng-click="removeUpload()" class="btn btn-default">Remove upload</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Username:</strong> {{$root.user.username}} </p>
+                    <p>
+                        <strong>Email:</strong> {{$root.user.email}}
+                    </p>
+
+                    <p ng-hide="editing.fullName">
+                        <strong>Full Name:</strong> {{$root.user.fullName}}
+                        <a href="" ng-click="editing.fullName = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.fullName" class="form-group">
+                        <label for="inputFullName">Full Name</label>
+                        <input required ng-maxlength="64" ng-model="input.fullName" type="text" class="form-control" name="fullName" id="inputFullName">
+                        <div ng-messages="form.fullName.$touched && form.fullName.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Full name is required.
+                            </div>
+                            <div ng-message-exp="['maxlength']">
+                                Full name should be less than 64 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <p ng-hide="editing.orgName">
+                        <strong>Organization Name:</strong> {{$root.user.orgName}}
+                        <a href="" ng-click="editing.orgName = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.orgName" class="form-group">
+                        <label for="inputOrgName">Organization Name</label>
+                        <input ng-maxlength="64" ng-model="input.orgName" type="text" class="form-control" name="orgName" id="inputOrgName">
+                        <div ng-messages="form.orgName.$touched && form.orgName.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['maxlength']">
+                                Organization name should be less than 64 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <p ng-hide="editing.phone">
+                        <strong>Phone Number:</strong> {{$root.user.phone}}
+                        <a href="" ng-click="editing.phone = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.phone" class="form-group">
+                        <label for="inputPhone">Phone Number</label>
+                        <input required ng-pattern="/^\d\d\d-\d\d\d-\d\d\d\d$/" ng-model="input.phone" type="text" class="form-control" name="phone" id="inputPhone">
+                        <div ng-messages="form.phone.$touched && form.phone.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Phone number is required.
+                            </div>
+                            <div ng-message-exp="['pattern']">
+                                Phone number should use this format: XXX-XXX-XXXX
+                            </div>
+                        </div>
+                    </div>
+
+                    <p ng-hide="editing.street">
+                        <strong>Street Address:</strong> {{$root.user.street}}
+                        <a href="" ng-click="editing.street = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.street" class="form-group">
+                        <label for="inputStreet">Street Address</label>
+                        <input required ng-maxlength="64" ng-model="input.street" type="text" class="form-control" name="street" id="inputStreet">
+                        <div ng-messages="form.street.$touched && form.street.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Street address is required.
+                            </div>
+                            <div ng-message-exp="['maxlength']">
+                                Street address should be less than 255 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <p ng-hide="editing.zipcode">
+                        <strong>Zipcode:</strong> {{($root.user.area.zipcode+" " +$root.user.area.name)}}
+                        <a href="" ng-click="editing.zipcode = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.zipcode" class="form-group">
+                        <label for="inputZipcode">Zipcode</label>
+                        <select required ng-model="input.zipcode" ng-options="area.zipcode as area.zipcode+' '+area.name for area in $root.areas" class="form-control" id="inputZipcode">
+                            <option value="" selected disabled>Select an area</option>
+                        </select>
+                    </div>
+
+                    <p ng-hide="editing.description">
+                        <strong>Description:</strong> {{$root.user.description}}
+                        <a href="" ng-click="editing.description = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </p>
+                    <div ng-show="editing.description" class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea ng-maxlength="255" ng-model="input.description" class="form-control" id="inputDescription" rows="3"></textarea>
+                    </div>
+
+                    <hr>
+                    <button class="btn btn-default" ng-disabled="!form.$valid || !form.$dirty" ng-click="submit()">Update My Profile</button>
+                    <button class="btn btn-default" ng-click="openUpdatePasswordDialog()">Change My Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

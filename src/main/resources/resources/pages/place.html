@@ -1,0 +1,123 @@
+<div class="container">
+    <h1 class="title">Place Order
+    </h1>
+
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="$root.back()">Back</button>
+    <div class="row padding-20">
+        <div class="col-md-8">
+            <h3>My Billing Information:</h3>
+                <p class="left-margin"><strong>Full Name: </strong>{{$root.user.fullName}}</p>
+                <p class="left-margin" ng-show="$root.user.orgName"><strong>Organization Name: </strong>{{$root.user.orgName}}</p>
+                <p class="left-margin"><strong>Phone Number: </strong>{{$root.user.phone}}</p>
+                <p class="left-margin"><strong>Email: </strong>{{$root.user.email}}</p>
+                <p class="left-margin">{{$root.user.street}}</p>
+                <p class="left-margin">{{$root.user.area.name}}, PA {{$root.user.area.zipcode}}</p>
+            <hr>
+            <h3>My Shipping Information:</h3>
+            <div class="checkbox left-margin">
+                <label>
+                    <input type="checkbox" ng-model="sameAddress"> Same as my billing address
+                </label>
+            </div>
+            <form class="left-margin" ng-hide="sameAddress" name="form">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputFullName">Full Name</label>
+                            <input required ng-maxlength="64" ng-model="input.fullName" type="text" class="form-control" name="fullName" id="inputFullName" placeholder="Enter full name">
+                            <div ng-messages="form.fullName.$touched && form.fullName.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Full name is required.
+                                </div>
+                                <div ng-message-exp="['maxlength']">
+                                    Full name should be less than 64 characters.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputOrgName">Organization Name</label>
+                            <input ng-maxlength="64" ng-model="input.orgName" type="text" class="form-control" name="orgName" id="inputOrgName" placeholder="Enter organization name (optional)">
+                            <div ng-messages="form.orgName.$touched && form.orgName.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['maxlength']">
+                                    Organization name should be less than 64 characters.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputPhone">Phone Number</label>
+                    <input required ng-pattern="/\d\d\d-\d\d\d-\d\d\d\d/" ng-model="input.phone" type="text" class="form-control" name="phone" id="inputPhone" placeholder="Enter phone number">
+                    <div ng-messages="form.phone.$touched && form.phone.$error" role="alert" class="text-danger">
+                        <div ng-message-exp="['required']">
+                            Phone number is required.
+                        </div>
+                        <div ng-message-exp="['pattern']">
+                            Phone number should use this format: XXX-XXX-XXXX
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input required ng-maxlength="255" ng-pattern="/^.+@.+\..+$/" ng-model="input.email" type="email" class="form-control" name="email" id="inputEmail" placeholder="Enter email address">
+                    <div ng-messages="form.email.$touched && form.email.$error" role="alert" class="text-danger">
+                        <div ng-message-exp="['required']">
+                            Email is required.
+                        </div>
+                        <div ng-message-exp="['maxlength']">
+                            Email should be less than 255 characters.
+                        </div>
+                        <div ng-message-exp="['pattern']">
+                            Invalid email format.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label for="inputStreet">Street Address</label>
+                            <input required ng-maxlength="64" ng-model="input.street" type="text" class="form-control" name="street" id="inputStreet" placeholder="Enter street address">
+                            <div ng-messages="form.street.$touched && form.street.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Street address is required.
+                                </div>
+                                <div ng-message-exp="['maxlength']">
+                                    Street address should be less than 255 characters.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="inputZipcode">Zipcode</label>
+                            <select required ng-model="input.zipcode" ng-options="area.zipcode as area.zipcode+' '+area.name for area in $root.areas" class="form-control" id="inputZipcode">
+                                <option value="" selected disabled>Select an area</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <h3>Payment:</h3>
+            <p class="left-margin"><i class="fa fa-circle-o" aria-hidden="true"></i> <img class="paypal" src="image/paypal.png"> (Non-functional for the demo)</p>
+        </div>
+
+        <div class="col-md-4 text-right">
+            <h4>Price: {{totalPrice |currency}}</h4>
+            <h4>Shipping Fee: {{totalShippingPrice | currency}}</h4>
+            <h4 class="text-muted">Tax: {{0 |currency}}</h4>
+            <p class="text-muted">Tax is not calculated in the demo</p>
+            <h4>Total Price: {{totalPrice+totalShippingPrice | currency}}</h4>
+            <button class="btn btn-primary" ng-click="placeOrder()" ng-disabled="!allowSubmit()">Place the order</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>

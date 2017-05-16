@@ -1,0 +1,55 @@
+<div class="container">
+    <h1 class="title">{{product.name}}
+        <small>Product detail</small>
+    </h1>
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="$root.back()">Back</button>
+    <button class="btn btn-primary pull-right back-button product-add-button" ng-click="$root.openCartPage()" ng-show="$root.isCustomer">Check the cart</button>
+    <div class="row padding-20">
+        <div class="col-md-8">
+            <h4>Product Description:</h4>
+            <h5>{{product.description ||"This item has no description."}}</h5>
+            <hr>
+            <h4>Tags:</h4>
+            <h4><span class="tag-label label label-default" ng-repeat="tag in product.tags">{{tag.name}}</span></h4>
+            <hr>
+            <h4>Supplier's info:</h4>
+            <h5><strong>{{product.supplier.username}}</strong> ({{product.supplier.fullName}})</h5>
+            <h5>{{product.supplier.orgName}}</h5>
+            <h5>{{product.supplier.street}}</h5>
+            <h5>{{product.supplier.area.name+", PA"}}, {{product.supplier.area.zipcode}}</h5>
+            <h5>{{product.supplier.phone}}</h5>
+            <h5>{{product.supplier.email}}</h5>
+            <button class="btn btn-default" ng-show="$root.isCustomer"  ng-click="$root.openSendMessageDialog(product.supplier)">Send a message</button>
+            <p class="text-muted" ng-hide="$root.isCustomer">You cannot send a message in supplier's mode</p>
+        </div>
+        <div class="col-md-4 text-right">
+            <img class="product-thumbnail-large" ng-src="{{product.imgLink|getImage}}" err-src="image/default.png" alt="...">
+            <h4>{{product.currentPrice |currency}} + {{product.currentShippingPrice | currency}} Shipping Fee</h4>
+            <h5>Unit: {{product.unitName}}</h5>
+            <h5>Available Unit(s): {{product.availableQuantity}}</h5>
+            <p class="text-muted" ng-hide="$root.isCustomer">You cannot order product in supplier's mode</p>
+            <div class="clearfix">
+                <div ng-show="$root.isCustomer && !cart" class="pull-right">
+                    <button ng-disabled="!isQuantityValid()" ng-click="updateCart()" class="btn btn-primary product-add-button">Add to cart</button>
+                </div>
+                <div ng-show="$root.isCustomer && cart" class="pull-right">
+                    <button ng-disabled="!isQuantityChanged()" ng-click="updateCart()" class="btn btn-primary product-add-button">Update cart</button>
+                </div>
+                <div ng-show="$root.isCustomer " class="input-group col-md-5 pull-right">
+                    <span ng-click="decreaseQuantity()" class="input-group-addon input-clickable-icon">-</span>
+
+                    <input ng-model="quantity" ng-model-options='{ debounce: 500 }' ng-change="changeQuantity()" type="text" class="form-control">
+                    <span ng-click="increaseQuantity()" class="input-group-addon input-clickable-icon">+</span>
+                </div>
+            </div>
+            <div ng-show="$root.isCustomer">
+            <h5 ng-hide="cart" class="text-warning">Not added to cart yet</h5>
+            <h5 ng-show="cart" class="text-warning">Unit(s) in my cart: {{cart.quantity}}</h5>
+            <h5 ng-show="cart" class="text-warning">Price: {{cart.price*cart.quantity | currency}}</h5>
+            <h5 ng-show="cart" class="text-warning">Shipping Price: {{cart.shippingPrice*cart.quantity | currency}}</h5>
+            <h5 ng-show="cart" class="text-warning">Estimated Total: {{(cart.shippingPrice + cart.price)*cart.quantity | currency}}</h5>
+            <p ng-show="cart"><a href="" ng-click="removeCart()">Remove all</a></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Derby - spring@localhost" uuid="08147dec-de87-46cb-9f9b-39e6eedf5017">
+    <database-info product="Apache Derby" version="10.12.1.1 - (1704137)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="TEST" catalog=""/>
+    <table name="AREA" schema="TEST" catalog="" type="TABLE">
+      <column name="ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL160502084643280" columns="ZIPCODE"/>
+    </table>
+    <table name="CART" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="PRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="QUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502084643300" columns="ID"/>
+      <foreign-key name="FK_IAXJD1KWFXRWDC9R0BI4M5L5Q" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_GDKWSWRHPRQ6J076AGJ8ML9BR" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="CUSTOMER" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL160502084643310" columns="ID"/>
+      <foreign-key name="FK_3PEV5PHCK463OUK4XG77ED5VN" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="CUSTOMER_TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TRANSACTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_SMJ8CPL6T5G2JQ9XTV04EBTQA" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_C8MWGHHHBWJBIQXI83SC1YOW4" columns="TRANSACTS_ID" ref-table="TRANSACT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="NOTIFICATION" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="BODY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="HASREAD" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="false" jdbcType="93"/>
+      <column name="TOCUSTOMER" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="TYPE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502084643340" columns="ID"/>
+      <foreign-key name="FK_BQKUWOI89C4RV8V2UBJVTU11R" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_JKBV6BYWL674IJAYF6PLEEU2I" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="AVAILABLEQUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CURRENTPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="CURRENTSHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="UNITNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL160502084643350" columns="ID"/>
+      <foreign-key name="FK_RS36J88ONYHH1IUNLR6QTHVJ6" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT_TAG" schema="TEST" catalog="" type="TABLE">
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TAGS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_KVDPQSTDT2M3K2738ICC67QBP" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_P4PCTFMWUNARQ6KDACQQHDC8P" columns="TAGS_ID" ref-table="TAG" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT_TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TRANSACTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_FNJOT8GK7HLGDHF86H8RJ3B8P" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_PDRWX5VND78AHOOMM7933TVNE" columns="TRANSACTS_ID" ref-table="TRANSACT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="SUPPLIER" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL160502084643400" columns="ID"/>
+      <foreign-key name="FK_R7CQWWLRMLM4E21FEWGTOTKNT" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="SUPPLIER_PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_CPP14O1IEORJJAAGK8MKXWT6B" columns="PRODUCTS_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_TGNPHR0H9P6JQ7X9U1NPB4CU8" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TAG" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PARENTID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502084643430" columns="ID"/>
+    </table>
+    <table name="TAG_PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="TAG_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_NQ44EHDNOPTMNKS77HUCC9KSW" columns="PRODUCTS_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3WNYVB1HBA21IC2DJJKFTEGN" columns="TAG_ID" ref-table="TAG" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="CANCEL" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="CANCELBYCUSTOMER" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="CANCELREASON" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="QUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SHIPPED" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="SHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="false" jdbcType="93"/>
+      <column name="TRACKING" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502084643450" columns="ID"/>
+      <foreign-key name="FK_521CWARD4U3TAH69OGOG3FUH2" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_N9QK6EB36IGADTGKOPAN6TB7E" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3FNEW4Y4B7BBLEOG34DJ57768" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+  <data-source name="fdfas" uuid="faa2da08-3108-4190-8e4b-2cd4c30e4950">
+    <database-info product="Apache Derby" version="10.12.1.1 - (1704137)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="APP" catalog=""/>
+    <schema name="TEST" catalog=""/>
+    <table name="AREA" schema="TEST" catalog="" type="TABLE">
+      <column name="ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL160502182253970" columns="ZIPCODE"/>
+    </table>
+    <table name="CART" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="PRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="QUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502182254030" columns="ID"/>
+      <foreign-key name="FK_IAXJD1KWFXRWDC9R0BI4M5L5Q" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_GDKWSWRHPRQ6J076AGJ8ML9BR" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="CUSTOMER" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL160502182254070" columns="ID"/>
+      <foreign-key name="FK_3PEV5PHCK463OUK4XG77ED5VN" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="CUSTOMER_TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TRANSACTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_SMJ8CPL6T5G2JQ9XTV04EBTQA" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_C8MWGHHHBWJBIQXI83SC1YOW4" columns="TRANSACTS_ID" ref-table="TRANSACT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="NOTIFICATION" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="BODY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="HASREAD" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="false" jdbcType="93"/>
+      <column name="TOCUSTOMER" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="TYPE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502182254110" columns="ID"/>
+      <foreign-key name="FK_BQKUWOI89C4RV8V2UBJVTU11R" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_JKBV6BYWL674IJAYF6PLEEU2I" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="AVAILABLEQUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="CURRENTPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="CURRENTSHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="UNITNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL160502182254140" columns="ID"/>
+      <foreign-key name="FK_RS36J88ONYHH1IUNLR6QTHVJ6" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT_TAG" schema="TEST" catalog="" type="TABLE">
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TAGS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_KVDPQSTDT2M3K2738ICC67QBP" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_P4PCTFMWUNARQ6KDACQQHDC8P" columns="TAGS_ID" ref-table="TAG" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PRODUCT_TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="TRANSACTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_FNJOT8GK7HLGDHF86H8RJ3B8P" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_PDRWX5VND78AHOOMM7933TVNE" columns="TRANSACTS_ID" ref-table="TRANSACT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="SUPPLIER" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL160502182254220" columns="ID"/>
+      <foreign-key name="FK_R7CQWWLRMLM4E21FEWGTOTKNT" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="SUPPLIER_PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="SUPPLIER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_CPP14O1IEORJJAAGK8MKXWT6B" columns="PRODUCTS_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_TGNPHR0H9P6JQ7X9U1NPB4CU8" columns="SUPPLIER_ID" ref-table="SUPPLIER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TAG" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="IMGLINK" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PARENTID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502182254290" columns="ID"/>
+    </table>
+    <table name="TAG_PRODUCT" schema="TEST" catalog="" type="TABLE">
+      <column name="TAG_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCTS_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_NQ44EHDNOPTMNKS77HUCC9KSW" columns="PRODUCTS_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3WNYVB1HBA21IC2DJJKFTEGN" columns="TAG_ID" ref-table="TAG" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TRANSACT" schema="TEST" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="CANCEL" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="CANCELBYCUSTOMER" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="CANCELREASON" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="FULLNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ORGNAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="QUANTITY" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="SHIPPED" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="SHIPPINGPRICE" sqlType="NUMERIC" precision="19" scale="2" nullable="false" jdbcType="2"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="false" jdbcType="93"/>
+      <column name="TRACKING" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="AREA_ZIPCODE" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CUSTOMER_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="PRODUCT_ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="SQL160502182254340" columns="ID"/>
+      <foreign-key name="FK_521CWARD4U3TAH69OGOG3FUH2" columns="AREA_ZIPCODE" ref-table="AREA" ref-schema="TEST" ref-catalog="" ref-columns="ZIPCODE" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_N9QK6EB36IGADTGKOPAN6TB7E" columns="CUSTOMER_ID" ref-table="CUSTOMER" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_3FNEW4Y4B7BBLEOG34DJ57768" columns="PRODUCT_ID" ref-table="PRODUCT" ref-schema="TEST" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+  <data-source name="Derby (Remote) - OnlineBidding@localhost" uuid="ee957d2e-64fa-4d2c-b379-ae491d5a19ae">
+    <database-info product="Apache Derby" version="10.12.1.1 - (1704137)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="APP" catalog=""/>
+    <schema name="TEST" catalog=""/>
+    <table name="BIDDING" schema="TEST" catalog="" type="TABLE">
+      <column name="BIDDING_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+      <column name="LISTING_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="BIDDER_ID" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EVENT_TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="PRICE" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <primary-key name="SQL151206233323560" columns="BIDDING_ID"/>
+      <foreign-key name="SQL151206233323561" columns="LISTING_ID" ref-table="LISTING" ref-schema="TEST" ref-catalog="" ref-columns="LISTING_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="SQL151206233323562" columns="BIDDER_ID" ref-table="USERS" ref-schema="TEST" ref-catalog="" ref-columns="USER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="LISTING" schema="TEST" catalog="" type="TABLE">
+      <column name="LISTING_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+      <column name="CREATOR_ID" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LISTING_NAME" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ENDING_TIME" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="INITIAL_PRICE" sqlType="DECIMAL" precision="10" scale="2" nullable="true" jdbcType="3"/>
+      <primary-key name="SQL151206233321720" columns="LISTING_ID"/>
+      <foreign-key name="SQL151206233321721" columns="CREATOR_ID" ref-table="USERS" ref-schema="TEST" ref-catalog="" ref-columns="USER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="USERS" schema="TEST" catalog="" type="TABLE">
+      <column name="USER_ID" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USERNAME" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL151206233318600" columns="USER_ID"/>
+      <index name="USERNAME_UINDEX" unique="true" columns="USERNAME"/>
+    </table>
+  </data-source>
+</component>

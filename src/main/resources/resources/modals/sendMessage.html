@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <button ng-click="cancel()" type="button" class="close"><span>&times;</span></button>
+    <h3 class="modal-title">Supplier's page</h3>
+</div>
+<div class="modal-body">
+
+    <div class="tab-content-margin">
+        <h4>Supplier's info:</h4>
+        <div>
+            <div class="col-md-6">
+                <h5><strong>{{target.username}}</strong> ({{target.fullName}})</h5>
+                <h5>{{target.orgName}}</h5>
+                <h5><a href="">{{target.email}}</a></h5>
+            </div>
+            <div class="col-md-6">
+                <h5>{{target.street}}</h5>
+                <h5>{{target.area.name+", PA, "+target.area.zipcode}}</h5>
+                <h5>{{target.phone}}</h5>
+            </div>
+        </div>
+
+
+        <form name="form">
+
+            <div class="form-group">
+                <label for="inputMessage">Send Message</label>
+                <textarea required ng-model="input.message" class="form-control" id="inputMessage" rows="5" placeholder="Enter a message"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-disabled="!form.$valid" ng-click="submit()">Submit</button>
+    <button class="btn" type="button" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+    <h1 class="title">My Products
+    </h1>
+    <div class="row padding-20" >
+        <div class="col-md-2">
+            <h4>See also:</h4>
+            <p>
+                <a href="#/notifications/1"><i class="fa fa-envelope" aria-hidden="true"></i> My Notifications</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/addProduct"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</a>
+            </p>
+            <p>
+                <a href="#/orders/1"><i class="fa fa-sticky-note" aria-hidden="true"></i> My Orders</a>
+            </p>
+            <p>
+                <a href="#/profile"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a>
+            </p>
+        </div>
+        <div class="col-md-10">
+            <span class="span6 page-info">Found {{myProductsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > myProductsCount? myProductsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="myProductsCount" items-per-page="5"></uib-pagination>
+            </span>
+            <hr>
+
+            <h4 ng-show="!myProducts || myProducts.length === 0">No result found.</h4>
+            <div ng-repeat="product in myProducts">
+                <div class="media order-entry">
+                    <div class="media-left">
+                        <a href="">
+                            <img class="product-thumbnail-small" ng-src="{{product.imgLink|getImage}}" err-src="image/default.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="col-md-7">
+                            <h4 class="text-primary media-heading">{{product.name}}</h4>
+                            <p><strong>Unit:</strong> {{product.unitName}}</p>
+                            <p><strong>Price per unit:</strong> {{product.currentPrice | currency}} + {{product.currentShippingPrice | currency}} shipping fee
+                            </p>
+
+                            <p>{{product.availableQuantity}} units available</p></div>
+                        <div class="col-md-5 text-right"><p>
+                            <span class="tag-label label label-default" ng-repeat="tag in product.tags">{{tag.name}}</span>
+                        </p>
+                            <div>
+                                <button class="btn btn-default" ng-click="$root.openEditProductPage(product.id)">Edit Product</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr ng-if="!$last">
+            </div>
+            <hr>
+            <span class="span6 page-info">Found {{myProductsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > myProductsCount? myProductsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="ordersCount" items-per-page="5"></uib-pagination>
+            </span>
+
+        </div>
+
+    </div>
+</div>

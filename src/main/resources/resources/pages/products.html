@@ -1,0 +1,96 @@
+<div class="container">
+    <h1 class="title">Search Result
+    </h1>
+    <div class="row">
+        <div class="col-md-3 sidenav">
+
+            <h3>Advanced Search</h3>
+            <hr>
+            <div class="form-group">
+                <label>Keyword:</label>
+                <input type="text" ng-model="keyword" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="selectSortedBy">Sorted by:</label>
+                <select ng-model="sort" id="selectSortedBy" class="form-control">
+                    <option value="0">Alphabetical Order, A to Z</option>
+                    <option value="1">Alphabetical Order, Z to A</option>
+                    <option value="2">Price, Low to High</option>
+                    <option value="3">Price, High to Low</option>
+                    <option value="4">Available Quantity, High to Low</option>
+                    <option value="5">Available Quantity, Low to High</option>
+                </select>
+            </div>
+
+            <div class="form-group" ng-controller="TagSelectorController">
+                <label>Tags</label>
+                <!--tags[tag-1].parentId===-1: is a parent tag-->
+                <div class="tag-text text-primary" ng-class="{'bold':tags[tag-1].parentId===-1}" ng-click="removeTagByIndex($index)" ng-repeat="tag in tagsArr">
+                    <span>{{tags[tag-1].name}}</span><span ng-if="tags[tag-1].parentId===-1"> (All)</span> <i class="fa fa-remove" aria-hidden="true"></i></div>
+                <ul class="list-group tag-group">
+                    <div ng-repeat="tag in sortedTags" ng-hide="allChildsFiltered(tag) && filtered(tag)">
+                        <li class="list-group-item tag-group-item" ng-click="parentNodeClick(tag)">
+                            <i class="fa fa-square-o" ng-show="childNodeSelected(tag) === -1" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o text-muted" ng-show="childNodeSelected(tag) === 0" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o" ng-show="childNodeSelected(tag) === 1" aria-hidden="true"></i>
+                            {{tag.name}}
+                        </li>
+                        <li class="list-group-item tag-group-item tab-group-sub" ng-hide="filtered(child)" ng-click="childNodeClick(child)" ng-repeat="child in tag.childs">
+                            <i class="fa fa-square-o" ng-hide="child.selected" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o" ng-show="child.selected" aria-hidden="true"></i>
+                            {{child.name}}
+                        </li>
+                    </div>
+                </ul>
+                <input type="text" ng-model="filter" ng-change="filterTag()" class="form-control" placeholder="Filter tags...">
+            </div>
+            <button class="btn btn-primary sidenav-button" ng-click="applySearch()">Apply search</button>
+        </div>
+        <div class="col-md-9">
+            <span class="span6 page-info">Found {{productsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > productsCount? productsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="productsCount" items-per-page="5"></uib-pagination>
+            </span>
+            <hr>
+
+            <h4 ng-show="!products || products.length === 0">No result found.</h4>
+            <div ng-repeat="product in products">
+                <div class="media product-entry" ng-click="$root.openProductDetailPage(product.id)">
+                    <div class="media-left">
+                        <a href="">
+                            <img class="product-thumbnail-small" ng-src="{{product.imgLink|getImage}}" err-src="image/default.png">
+                        </a>
+                    </div>
+
+                    <div class="media-body">
+
+                        <div class="col-md-7">
+                            <h4 class="text-primary media-heading">{{product.name}}</h4>
+                            <p><strong>Unit:</strong> {{product.unitName}}</p>
+                            <p><strong>Price per unit:</strong> {{product.currentPrice | currency}} + {{product.currentShippingPrice | currency}} shipping fee
+                            </p>
+
+                            <p>{{product.availableQuantity}} units available</p></div>
+                        <div class="col-md-5 text-right">
+                            <p>
+                                <span class="tag-label label label-default" ng-repeat="tag in product.tags">{{tag.name}}</span>
+                            </p>
+                            <p><strong>Sell by:</strong> {{product.supplier.username}}</p>
+                            <p>{{product.supplier.orgName}}</p>
+
+                        </div>
+
+                    </div>
+                </div>
+                <hr ng-if="!$last">
+            </div>
+            <hr>
+            
+            <span class="span6 page-info">Found {{productsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > productsCount? productsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="productsCount" items-per-page="5"></uib-pagination>
+            </span>
+        </div>
+
+    </div>
+</div>

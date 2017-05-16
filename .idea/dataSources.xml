@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Derby - spring@localhost" uuid="08147dec-de87-46cb-9f9b-39e6eedf5017">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/spring;create=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="fdfas" uuid="faa2da08-3108-4190-8e4b-2cd4c30e4950">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://vancehu.info:1527/spring;create=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Derby (Remote) - OnlineBidding@localhost" uuid="ee957d2e-64fa-4d2c-b379-ae491d5a19ae">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/LocalFarmersMarket</jdbc-url>
+      <default-dialect>MySQL</default-dialect>
+    </data-source>
+    <data-source source="LOCAL" name="@159.203.142.96" uuid="5f89c59f-798a-4ba1-abce-ad083153a969">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://159.203.142.96:33306</jdbc-url>
+      <default-dialect>MySQL</default-dialect>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
+    </data-source>
+  </component>
+</project>

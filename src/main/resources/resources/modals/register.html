@@ -1,0 +1,179 @@
+<div class="modal-header">
+    <button ng-click="cancel()" type="button" class="close"><span>&times;</span></button>
+    <h3 class="modal-title">Register</h3>
+</div>
+<div class="modal-body">
+    <uib-tabset justified="true">
+        <uib-tab index="0" select="setIsCustomer(true)" heading="Register as a customer"></uib-tab>
+        <uib-tab index="1" select="setIsCustomer(false)" heading="Register as a supplier"></uib-tab>
+    </uib-tabset>
+
+    <div class="tab-content-margin">
+
+        <p>Already has an account? <a href="" ng-click="login()">Login</a></p>
+
+        <p ng-show="hasUsername" class="text-danger"> Username has already been taken. </p>
+        <p ng-show="hasEmail"  class="text-danger">Email address has already been taken. </p>
+        <hr>
+
+        <p ng-hide="isCustomer">You need to be invited to become a supplier. (Disabled for the demo.)</p>
+        <div ng-hide="isCustomer" class="form-group">
+            <label>Invite code (disabled)</label>
+            <input type="text" class="form-control" ng-disabled="true"/>
+        </div>
+
+        <form name="form">
+            <div class="form-group">
+                <div><label>Upload Avatar (optional)</label></div>
+                <img class="avatar clickable" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB" ng-src="{{uploadLink | getImage}}"/>
+                <div class="upload-panel">
+                    <div>
+                        <button class="btn btn-primary" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB">Upload new image</button>
+                        jpg or png file &lt;255kb
+                    </div>
+                    <div>
+                        <button ng-disabled="!uploadLink" ng-click="removeUpload()" class="btn btn-default">Remove upload</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputUsername">Username</label>
+                        <input required ng-minlength="6" ng-maxlength="32" ng-pattern="/^[A-z0-9_]*$/" ng-model="input.username" type="text" class="form-control" name="username" id="inputUsername" placeholder="Enter username">
+                        <div ng-messages="form.username.$touched && form.username.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Username is required.
+                            </div>
+                            <div ng-message-exp="['minlength', 'maxlength']">
+                                Username should be between 6 to 32 characters.
+                            </div>
+                            <div ng-message-exp="['pattern']">
+                                Username should only contains letters, numbers or underscore(_).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputFullName">Full Name</label>
+                        <input required ng-maxlength="64" ng-model="input.fullName" type="text" class="form-control" name="fullName" id="inputFullName" placeholder="Enter full name">
+                        <div ng-messages="form.fullName.$touched && form.fullName.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Full name is required.
+                            </div>
+                            <div ng-message-exp="['maxlength']">
+                                Full name should be less than 64 characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input required ng-maxlength="32" ng-minlength="6" ng-model="input.password" type="password" class="form-control" name="password" id="inputPassword" placeholder="Enter password">
+                        <div ng-messages="form.password.$touched && form.password.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Password is required.
+                            </div>
+                            <div ng-message-exp="['minlength', 'maxlength']">
+                                Password should be between 6 and 32 characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPassword2">Re-enter Password</label>
+                        <input required match-password="input.password" ng-model="password2" type="password" class="form-control" name="password2" id="inputPassword2" placeholder="Enter password again">
+                        <div ng-messages="form.password2.$touched && form.password2.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['matchPassword']">
+                                Password does not match.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputOrgName">Organization Name</label>
+                        <input ng-maxlength="64" ng-model="input.orgName" type="text" class="form-control" name="orgName" id="inputOrgName" placeholder="Enter organization name (optional)">
+                        <div ng-messages="form.orgName.$touched && form.orgName.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['maxlength']">
+                                Organization name should be less than 64 characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPhone">Phone Number</label>
+                        <input required ng-pattern="/^\d\d\d-\d\d\d-\d\d\d\d$/" ng-model="input.phone" type="text" class="form-control" name="phone" id="inputPhone" placeholder="Enter phone number">
+                        <div ng-messages="form.phone.$touched && form.phone.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Phone number is required.
+                            </div>
+                            <div ng-message-exp="['pattern']">
+                                Phone number should use this format: XXX-XXX-XXXX
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input required ng-maxlength="255" ng-pattern="/^.+@.+\..+$/" ng-model="input.email" type="email" class="form-control" name="email" id="inputEmail" placeholder="Enter email address">
+                <div ng-messages="form.email.$touched && form.email.$error" role="alert" class="text-danger">
+                    <div ng-message-exp="['required']">
+                        Email is required.
+                    </div>
+                    <div ng-message-exp="['maxlength']">
+                        Email should be less than 255 characters.
+                    </div>
+                    <div ng-message-exp="['pattern']">
+                        Invalid email format.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="inputStreet">Street Address</label>
+                        <input required ng-maxlength="64" ng-model="input.street" type="text" class="form-control" name="street" id="inputStreet" placeholder="Enter street address">
+                        <div ng-messages="form.street.$touched && form.street.$error" role="alert" class="text-danger">
+                            <div ng-message-exp="['required']">
+                                Street address is required.
+                            </div>
+                            <div ng-message-exp="['maxlength']">
+                                Street address should be less than 255 characters.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="inputZipcode">Zipcode</label>
+                        <select required ng-model="input.zipcode" ng-options="area.zipcode as area.zipcode+' '+area.name for area in $root.areas" class="form-control" id="inputZipcode">
+                            <option value="" selected disabled>Select an area</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Description</label>
+                <textarea ng-model="input.description" class="form-control" id="inputDescription" rows="3" placeholder="Enter description (optional)"></textarea>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-disabled="!form.$valid" ng-click="submit()">Submit</button>
+    <button class="btn" type="button" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+    <h1 class="title">Tags Categories</h1>
+
+    <p>Here lists all the available tags for the products. You can click on any of them to start searching.</p>
+    <p>Click "More" to expand a category of tags</p>
+    <p>A product may have multiple tags.</p>
+    <hr>
+    <div class="col-md-6 tag-card">
+        <div class="thumbnail" ng-repeat="tag in sortedTags" ng-hide="$odd">
+            <img ng-src="{{tag.imgLink | getImage}}" class="md-card-image tags-image"/>
+            <div class="caption">
+                <h3><a ng-href="#/products/tags/{{tag.id}}/keyword/sort/page">{{tag.name}}</a></h3>
+                <p ng-repeat="child in tag.childs" ng-show="showMore || ($index<4)">
+                    <span class="textlink"> <a ng-href="#/products/tags/{{child.id}}/keyword/sort/page">{{child.name}}</a></span>
+                </p>
+            </div>
+            <div class="text-center">
+                <a href="" class="text-muted text-center" ng-hide="(tag.childs.length <= 4) || showMore" ng-click="showMore = true">More</a>
+                <a href="" class="text-muted text-center" ng-show="showMore" ng-click="showMore = false">Hide</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 tag-card">
+        <div class="thumbnail" ng-repeat="tag in sortedTags" ng-show="$odd">
+            <img ng-src="{{tag.imgLink | getImage}}" class="md-card-image tags-image"/>
+            <div class="caption">
+                <h3><a ng-href="#/products/tags/{{tag.id}}/keyword/sort/page">{{tag.name}}</a></h3>
+                <p ng-repeat="child in tag.childs" ng-show="showMore || ($index<4)">
+                    <span class="textlink"> <a ng-href="#/products/tags/{{child.id}}/keyword/sort/page">{{child.name}}</a></span>
+                </p>
+            </div>
+            <div class="text-center">
+                <a href="" class="text-muted text-center" ng-hide="(tag.childs.length <= 4) || showMore" ng-click="showMore = true">More</a>
+                <a href="" class="text-muted text-center" ng-show="showMore" ng-click="showMore = false">Hide</a>
+            </div>
+        </div>
+    </div>
+
+</div>

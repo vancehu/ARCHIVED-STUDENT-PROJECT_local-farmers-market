@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--debug-->
+    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />-->
+    <!--<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">-->
+    <!--<link rel="stylesheet" href="dist/css/style.css" />-->
+
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <title>Farmer's market</title>
+</head>
+
+<body ng-app="starterApp" ng-controller="GlobalController" ng-cloak>
+
+    <!-- header -->
+    <header ng-controller="UserController" class="header navbar-default">
+        <img ng-show="$root.isCustomer" class="logo" src="image/logo.png">
+        <img ng-hide="$root.isCustomer" class="logo" src="image/logo-supplier.png">
+        <ul class="nav navbar-nav navbar-right">
+            <!-- not logged in  -->
+            <li ng-hide="$root.user"><a href="#/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span ng-show="$root.cartsCount > 0" class="badge">{{$root.cartsCount}}</span></a></li>
+            <li ng-hide="$root.user"><a href="" ng-click="openLoginDialog()"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+            <li ng-hide="$root.user"><a href="" ng-click="openRegisterDialog()"><i class="fa fa-pencil" aria-hidden="true"></i> Register</a></li>
+
+
+            <!--logged in-->
+            <li ng-show="$root.user"><a class="nav-link-compact" href="#/notifications/1" ng-show="$root.unreadCount > 0"><i class="fa fa-envelope" aria-hidden="true"></i> <span class="badge">{{$root.unreadCount}}</span></a></li>
+            <li ng-show="$root.user" uib-dropdown class="dropdown">
+                <a href="" uib-dropdown-toggle class="dropdown-toggle"><img class="header-avatar" ng-src="{{$root.user.imgLink | getImage}}" /> <span ng-bind="$root.user.username"></span> <span class="caret"></span></a>
+                <ul uib-dropdown-menu class="dropdown-menu">
+                    <li><a href="#/notifications/1"><i class="fa text-muted fa-envelope" aria-hidden="true"></i> My Notifications</a></li>
+                    <li ng-hide="$root.isCustomer"><a href="#/addProduct"><i class="fa text-muted fa-plus" aria-hidden="true"></i> Add Product</a></li>
+                    <li ng-hide="$root.isCustomer"><a href="#/myProducts/1"><i class="fa text-muted fa-briefcase" aria-hidden="true"></i> My Products</a></li>
+                    <li><a href="#/orders/1"><i class="fa text-muted fa-sticky-note" aria-hidden="true"></i> My Orders</a></li>
+                    <li><a href="#/profile"><i class="fa text-muted fa-user" aria-hidden="true"></i> My Profile</a></li>
+                </ul>
+            </li>
+            <li ng-show="$root.isCustomer && $root.user"><a href="#/cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge" ng-show="$root.cartsCount > 0">{{$root.cartsCount}}</span></a></li>
+            <li ng-show="$root.user"><a href="" ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+        </ul>
+        <!--</div>-->
+    </header>
+
+    <!--search and navigation-->
+    <nav ng-controller="NavbarController" class="bg-primary address-nav text-center" ng-class="{'dock':dockMode}">
+        <div ng-click="top()" class="button dock-icon" ng-show="dockMode"><i class="fa fa-chevron-up" aria-hidden="true"></i> Go to top</div>
+        <a ng-href="#/" class="button"><i class="fa fa-home" aria-hidden="true"></i> About</a>
+        <a ng-href="#/products/tags/keyword/sort/page" class="button"><i class="fa fa-th-list" aria-hidden="true"></i> Browse All</a>
+        <a ng-href="#/tags" class="button"><i class="fa fa-tags" aria-hidden="true"></i> Browse by Tags</a>
+        <span>
+        <input type="text" ng-model="keyword" class="form-control search"  placeholder="Search for a product">
+    </span>
+        <span class="search-icon text-muted" ng-click="openProductsPage(keyword)"><i class="fa fa-search search-icon" aria-hidden="true"></i></span>
+    </nav>
+
+
+    <div>
+        <!-- main content -->
+        <div ng-view class="view-fade">
+        </div>
+        <!--alert-->
+        <div class="container">
+            <div class="alert-area">
+                <uib-alert ng-repeat="alert in $root.alerts" type="{{alert.type}}" dismiss-on-timeout="3000" close="$root.closeAlert($index)">{{alert.msg}}
+                </uib-alert>
+            </div>
+        </div>
+    </div>
+
+    <!--debug-->
+    <!--<script src="bower_components/angular/angular.js"></script>-->
+    <!--<script src="bower_components/angular-animate/angular-animate.js"></script>-->
+    <!--<script src="bower_components/angular-route/angular-route.js"></script>-->
+    <!--<script src="bower_components/angular-messages/angular-messages.js"></script>-->
+    <!--<script src="bower_components/ng-file-upload/ng-file-upload.js"></script>-->
+    <!--<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>-->
+    <!--<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>-->
+    <!--<script src="bower_components/js-md5/build/md5.min.js"></script>-->
+    <!--<script src="dist/app.js"></script>-->
+
+    <script src="dist/js/angular.min.js"></script>
+    <script src="dist/js/angular-animate.min.js"></script>
+    <script src="dist/js/angular-route.min.js"></script>
+    <script src="dist/js/angular-messages.min.js"></script>
+    <script src="dist/js/ng-file-upload.min.js"></script>
+    <script src="dist/js/ui-bootstrap.min.js"></script>
+    <script src="dist/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="dist/js/md5.min.js"></script>
+    <script src="dist/js/app.js"></script>
+</body>
+
+</html>

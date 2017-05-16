@@ -1,0 +1,83 @@
+<div class="container">
+    <h1 class="title">My Notifications
+    </h1>
+
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="back()">Back</button>
+    <div class="row padding-20">
+
+        <div class="col-md-2">
+            <h4>See also:</h4>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/addProduct"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/myProducts/1"><i class="fa fa-briefcase" aria-hidden="true"></i> My Products</a>
+            </p>
+            <p>
+                <a href="#/orders/1"><i class="fa fa-sticky-note" aria-hidden="true"></i> My Orders</a>
+            </p>
+            <p>
+                <a href="#/profile"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a>
+            </p>
+        </div>
+        <div class="col-md-10">
+            <span class="span6 page-info">Found {{notificationsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > notificationsCount? notificationsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="notificationsCount" items-per-page="5"></uib-pagination>
+            </span>
+            <hr>
+            <h4 ng-show="!notifications || notifications.length === 0">My notification is currently empty.</h4>
+            <div ng-repeat="notification in notifications">
+                <div class="media notification-entry">
+                    <div class="media-left">
+                        <a ng-href="#/product/{{notification.product.id}}">
+                            <img class="header-avatar" ng-src="{{notification.product.imgLink|getImage}}" err-src="image/default.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="row">
+
+
+                            <div class="col-md-6">
+                                <p> Related to: <a href="" ng-click="$root.openSendMessageDialog($root.isCustomer?notification.supplier:notification.customer)"><strong>{{$root.isCustomer?notification.supplier.username:notification.customer.username}}</strong></a>
+                                </p>
+                            </div>
+                            <div class="col-md-6 text-right">{{notification.time | date:'yyyy-MM-dd HH:mm'}}</div>
+                        </div>
+                        <p ng-show="notification.type === 0">
+                            The {{$root.isCustomer?"supplier":"customer"}} sent you a message: {{notification.body}}
+                        </p>
+                        <p ng-show="notification.type === 1">
+                            The {{$root.isCustomer?"supplier":"customer"}} has placed an order. Please check in
+                            <a href="" ng-click="markAndOpenOrdersPage($index)">My
+                                Orders</a> page.
+                        </p>
+                        <p ng-show="notification.type === 2">
+                            The {{$root.isCustomer?"supplier":"customer"}} has shipped an order. Please check in
+                            <a href="" ng-click="markAndOpenOrdersPage($index)">My Orders</a> page.
+                        </p>
+                        <p ng-show="notification.type === 3">
+                            The {{$root.isCustomer?"supplier":"customer"}} has cancelled an order. Please check in
+                            <a href="" ng-click="markAndOpenOrdersPage($index)">My Orders</a> page.
+                        </p>
+                        <p>
+                            <span ng-class=" {'text-muted': notification.hasRead, 'text-warning':!notification.hasRead}"><span ng-hide="notification.hasRead"><i class="fa fa-envelope" aria-hidden="true"></i> <strong>Unread</strong></span> <span ng-show="notification.hasRead"><i class="fa fa-envelope-o" aria-hidden="true"></i> Read</span></span>
+                            <button class="left-margin btn btn-primary" ng-hide="notification.hasRead" ng-click="mark($index, true)">Mark Read</button>
+                            <button class="left-margin btn btn-default" ng-show="notification.hasRead" ng-click="mark($index, false)">Mark Unread</button>
+                            <button class="btn btn-default" ng-click="$root.openSendMessageDialog($root.isCustomer?notification.supplier:notification.customer)">
+                                Contact the
+                                {{$root.isCustomer?"supplier":"customer"}}
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <hr ng-if="!$last">
+            </div>
+            <hr>
+            <span class="span6 page-info">Found {{notificationsCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > notificationsCount? notificationsCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="notificationsCount" items-per-page="5"></uib-pagination>
+            </span>
+        </div>
+    </div>
+</div>

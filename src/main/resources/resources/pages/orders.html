@@ -1,0 +1,111 @@
+<div class="container">
+    <h1 class="title">My Orders
+    </h1>
+
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="back()">Back</button>
+    <div class="row padding-20">
+
+        <div class="col-md-2">
+            <h4>See also:</h4>
+            <p>
+                <a href="#/notifications/1"><i class="fa fa-envelope" aria-hidden="true"></i> My Notifications</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/addProduct"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</a>
+            </p>
+            <p ng-hide="$root.isCustomer">
+                <a href="#/myProducts/1"><i class="fa fa-briefcase" aria-hidden="true"></i> My Products</a>
+            </p>
+            <p>
+                <a href="#/profile"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a>
+            </p>
+        </div>
+        <div class="col-md-10">
+            <span class="span6 page-info">Found {{ordersCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > ordersCount? ordersCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="ordersCount" items-per-page="5"></uib-pagination>
+            </span>
+
+            <hr>
+            <h4 ng-show="!orders || orders.length === 0">My order is currently empty.</h4>
+            <div ng-repeat="order in orders">
+                <div class="media order-entry">
+                    <div class="media-left">
+                        <a ng-href="#/product/{{order.product.id}}">
+                            <img class="product-thumbnail-small" ng-src="{{order.product.imgLink|getImage}}" err-src="image/default.png">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="row">
+
+                            <div class="col-md-7">
+                                <h4 class="text-primary media-heading"><a  ng-href="#/product/{{order.product.id}}">{{order.product.name}}</a></h4>
+                                <p>Unit: {{order.product.unitName}}</p>
+                                <p>Quantity: {{order.quantity}} </p>
+                                <p>Price Total: <strong>{{(order.price + order.shippingPrice)*order.quantity | currency}}</strong></p>
+                            </div>
+                            <div class="col-md-5 text-right">
+                                <p>Placed:  {{order.time | date:'yyyy-MM-dd HH:mm'}}</p>
+                                <p>Request <span ng-show="$root.isCustomer">to</span><span ng-hide="$root.isCustomer">from</span>: <a href=""  ng-click="$root.openSendMessageDialog($root.isCustomer?order.product.supplier:order.customer)"><strong>{{$root.isCustomer?order.product.supplier.username:order.customer.username}}</strong></a> </p>
+                                <p ng-show="orderStatus($index) === 'shipped'"><i class="fa fa-truck" aria-hidden="true"></i> Shipped</p>
+                                <p ng-show="orderStatus($index) === 'shipped'">
+                                    <a uib-popover="{{order.tracking}}" popover-trigger="mouseenter" popover-placement="bottom" popover-append-to-body="true" href="">Show Tracking</a>
+                                </p>
+                                <p ng-show="orderStatus($index) === 'processing' && $root.isCustomer"><i class="fa fa-clock-o" aria-hidden="true"></i> Processing</p>
+                                <p ng-show="orderStatus($index) === 'processing' && !$root.isCustomer" class="text-danger"><i class="fa fa-clock-o" aria-hidden="true"></i> Need to process</p>
+                                <p class="text-warning" ng-show="orderStatus($index) === 'cancelled' && $root.isCustomer"><i class="fa fa-ban" aria-hidden="true"></i> Cancelled by <span ng-show="order.cancelByCustomer">you</span><span href="" ng-hide="order.cancelByCustomer">the supplier</span></p>
+                                <p class="text-warning" ng-show="orderStatus($index) === 'cancelled'&& !$root.isCustomer"><i class="fa fa-ban" aria-hidden="true"></i> Cancelled by <span ng-show="order.cancelByCustomer">the customer</span><span href="" ng-hide="order.cancelByCustomer">you</span></p>
+                                <p ng-show="orderStatus($index) === 'cancelled'">
+                                    <a uib-popover="{{order.cancelReason}}" popover-trigger="mouseenter" popover-placement="bottom" popover-append-to-body="true" href="">Show Reason</a>
+                                </p>
+                            </div>
+                        </div>
+                        <button class="btn btn-default" ng-model="showAddress[$index]" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Show shipping address</button>
+                        <button class="btn btn-default" ng-click="$root.openSendMessageDialog($root.isCustomer?order.product.supplier:order.customer)">Contact the  <span ng-show="$root.isCustomer">supplier</span><span ng-hide="$root.isCustomer">customer</span></button>
+                        <button class="btn btn-default" ng-model="showCancelRequest[$index]" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-disabled="order.shipped || order.cancel">Request to cancel</button>
+                        <button class="btn btn-default" ng-model="showShipRequest[$index]" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0" ng-disabled="order.shipped || order.cancel">Ship order</button>
+                        <div ng-show="showShipRequest[$index]">
+                            <hr>
+                            <div class="form-group">
+                                <label>Tracking Number</label>
+                                <textarea required ng-model="tracking[$index]" class="form-control" rows="3" placeholder="Enter tracking number"></textarea>
+                            </div>
+                            <div>
+                                <button ng-disabled="!tracking[$index] || cancelReason[$index].length=== 0" class="btn btn-default" ng-click="shipOrder($index)">Submit</button>
+                            </div>
+                        </div>
+                        <div ng-show="showCancelRequest[$index]">
+                            <hr>
+                            <p class="text-muted">You can cancel an order before it's shipped.</p>
+                            <div class="form-group">
+                                <label>Reason is required</label>
+                                <textarea required ng-model="cancelReason[$index]" class="form-control" rows="3" placeholder="Enter description (optional)"></textarea>
+                            </div>
+                            <div>
+                                <button ng-disabled="!cancelReason[$index] || cancelReason[$index].length=== 0" class="btn btn-default" ng-click="cancelRequest($index)">Submit</button>
+                            </div>
+                        </div>
+                        <div ng-show="showAddress[$index]">
+                            <hr>
+                            <p><strong>Ship to: </strong></p>
+                            <p class="left-margin"><strong>Full Name: </strong>{{order.fullName}}</p>
+                            <p class="left-margin" ng-show="order.orgName"><strong>Organization Name: </strong>{{order.orgName}}</p>
+                            <p class="left-margin"><strong>Phone Number: </strong>{{order.phone}}</p>
+                            <p class="left-margin"><strong>Email: </strong>{{order.email}}</p>
+                            <p class="left-margin">{{order.street}}</p>
+                            <p class="left-margin">{{order.area.name}}, PA {{order.area.zipcode}}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr ng-if="!$last">
+            </div>
+            <hr>
+            <span class="span6 page-info">Found {{ordersCount}} Results. Showing {{currPage*5-4}} to {{currPage*5+1 > ordersCount? ordersCount :currPage*5+1 }}</span>
+            <span class="span6 pull-right">
+                 <uib-pagination ng-change="loadPage()" ng-model="page" direction-links="false" boundary-links="true" total-items="ordersCount" items-per-page="5"></uib-pagination>
+            </span>
+        </div>
+
+
+    </div>
+</div>

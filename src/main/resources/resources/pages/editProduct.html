@@ -1,0 +1,164 @@
+<div class="container">
+    <h1 class="title">Edit Product
+    </h1>
+
+    <button class="btn btn-default pull-right back-button product-add-button" ng-click="back()">Back</button>
+    <div class="row padding-20">
+
+        <div class="col-md-2">
+            <h4>See also:</h4>
+            <p>
+                <a href="#/notifications/1">My Notifications</a>
+            </p>
+            <p>
+                <a href="#/profile">My Profile</a>
+            </p>
+        </div>
+        <div class="col-md-10">
+            <form name="form">
+                <div class="form-group">
+                    <div><label>Upload Product Image (optional)</label></div>
+                    <img class="avatar clickable" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB" ng-src="{{uploadLink | getImage}}"/>
+                    <div class="upload-panel">
+                        <div>
+                            <button class="btn btn-primary" ngf-select="upload($file)" accept=".jpg,.png" ngf-max-size="255KB">Upload new image</button>
+                            jpg or png file &lt;255kb
+                        </div>
+                        <div>
+                            <button ng-disabled="!uploadLink" ng-click="removeUpload()" class="btn btn-default">Remove upload</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p ng-hide="editing.name">
+                            <strong>Name:</strong> {{product.name}}
+                            <a href="" ng-click="editing.name = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.name" class="form-group">
+                            <label for="inputName">Name</label>
+                            <input required ng-maxlength="32" ng-model="input.name" type="text" class="form-control" name="name" id="inputName" placeholder="Enter a product name">
+                            <div ng-messages="form.name.$touched && form.name.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Name is required.
+                                </div>
+                                <div ng-message-exp="['maxlength']">
+                                    Name should be less than 32 characters.
+                                </div>
+                            </div>
+                        </div>
+                        <p ng-hide="editing.unitName">
+                            <strong>Unit Name:</strong> {{product.unitName}}
+                            <a href="" ng-click="editing.unitName = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.unitName" class="form-group">
+                            <label for="inputUnitName">Unit name</label>
+                            <input required ng-maxlength="32" ng-model="input.unitName" type="text" class="form-control" name="unitName" id="inputUnitName" placeholder="1 ea, 1 lb, 16 oz, etc.">
+                            <div ng-messages="form.unitName.$touched && form.unitName.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Unit name is required.
+                                </div>
+                                <div ng-message-exp="['maxlength']">
+                                    Unit name should be less than 32 characters.
+                                </div>
+                            </div>
+                        </div>
+                        <p ng-hide="editing.currentPrice">
+                            <strong>Price per unit:</strong> {{product.currentPrice | currency}}
+                            <a href="" ng-click="editing.currentPrice = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.currentPrice" class="form-group">
+                            <label for="inputCurrentPrice">Price per unit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input required   ng-pattern="/^\d+(\.\d{1,2})?$/" ng-model="input.currentPrice" type="text" class="form-control" name="currentPrice" id="inputCurrentPrice" placeholder="Enter the price of a unit">
+                            </div>
+                            <div ng-messages="form.currentPrice.$touched && form.currentPrice.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Price is required.
+                                </div>
+                                <div ng-message-exp="['pattern']">
+                                    Price is invalid.
+                                </div>
+                            </div>
+                        </div>
+                        <p ng-hide="editing.currentShippingPrice">
+                            <strong>Shipping price per unit:</strong> {{product.currentShippingPrice | currency}}
+                            <a href="" ng-click="editing.currentShippingPrice = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.currentShippingPrice"  class="form-group">
+                            <label for="inputCurrentShippingPrice">Shipping price per unit</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input required  ng-pattern="/^\d{1,10}(\.\d{1,2})?$/" ng-model="input.currentShippingPrice" type="text" class="form-control" name="currentShippingPrice" id="inputCurrentShippingPrice" placeholder="Enter the shipping price of a unit">
+                            </div>
+                            <div ng-messages="form.currentShippingPrice.$touched && form.currentShippingPrice.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Shipping Price is required.
+                                </div>
+                                <div ng-message-exp="['pattern']">
+                                    Shipping Price is invalid.
+                                </div>
+                            </div>
+                        </div>
+                        <p ng-hide="editing.availableQuantity">
+                            <strong>Available Quantity:</strong> {{product.availableQuantity}}
+                            <a href="" ng-click="editing.availableQuantity = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.availableQuantity" class="form-group">
+                            <label for="inputAvailableQuantity">Available Quantity</label>
+                            <input required ng-pattern="/^\d{1,10}$/" ng-model="input.availableQuantity" type="text" class="form-control" name="availableQuantity" id="inputAvailableQuantity" placeholder="Enter the available quantity">
+                            <div ng-messages="form.availableQuantity.$touched && form.availableQuantity.$error" role="alert" class="text-danger">
+                                <div ng-message-exp="['required']">
+                                    Available quantity is required.
+                                </div>
+                                <div ng-message-exp="['pattern']">
+                                    Available quantity is invalid.
+                                </div>
+                            </div>
+                        </div>
+                        <p ng-hide="editing.description">
+                            <strong>Description:</strong> {{product.description}}
+                            <a href="" ng-click="editing.description = true"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </p>
+                        <div ng-show="editing.description"  class="form-group">
+                            <label for="inputDescription">Description</label>
+                            <textarea ng-model="input.description" class="form-control" id="inputDescription" rows="3" placeholder="Enter description (optional)"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-controller="TagSelectorController">
+                            <label>Tags</label>
+                            <!--tags[tag-1].parentId===-1: is a parent tag-->
+                            <div class="tag-text text-primary" ng-class="{'bold':tags[tag-1].parentId===-1}" ng-click="removeTagByIndex($index)" ng-repeat="tag in tagsArr">
+                                <span>{{tags[tag-1].name}}</span><span ng-if="tags[tag-1].parentId===-1"></span>
+                                <i class="fa fa-remove" aria-hidden="true"></i></div>
+                            <ul class="list-group tag-group">
+                                <div ng-repeat="tag in sortedTags" ng-hide="allChildsFiltered(tag) && filtered(tag)">
+                                    <li class="list-group-item tag-group-item" ng-click="parentNodeClick(tag)">
+                                        <i class="fa fa-square-o" ng-show="childNodeSelected(tag) === -1" aria-hidden="true"></i>
+                                        <i class="fa fa-check-square-o text-muted" ng-show="childNodeSelected(tag) === 0" aria-hidden="true"></i>
+                                        <i class="fa fa-check-square-o" ng-show="childNodeSelected(tag) === 1" aria-hidden="true"></i>
+                                        {{tag.name}}
+                                    </li>
+                                    <li class="list-group-item tag-group-item tab-group-sub" ng-hide="filtered(child)" ng-click="childNodeClick(child)" ng-repeat="child in tag.childs">
+                                        <i class="fa fa-square-o" ng-hide="child.selected" aria-hidden="true"></i>
+                                        <i class="fa fa-check-square-o" ng-show="child.selected" aria-hidden="true"></i>
+                                        {{child.name}}
+                                    </li>
+                                </div>
+                            </ul>
+                            <input type="text" ng-model="filter" ng-change="filterTag()" class="form-control" placeholder="Filter tags...">
+                        </div>
+                        <hr>
+                        <div class="div text-right" >
+                            <button class="btn btn-primary" ng-disabled="!form.$valid" ng-click="submit()">Update Product</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

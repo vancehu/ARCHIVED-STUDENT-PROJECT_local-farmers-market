@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EbizServer:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="LocalFarmersMarket-0.1.0.war">
+      <element id="artifact" artifact-name="EbizServer:war exploded" />
+    </root>
+  </artifact>
+</component>
