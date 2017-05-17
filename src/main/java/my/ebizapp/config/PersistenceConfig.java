@@ -44,14 +44,14 @@ public class PersistenceConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        String url;
-        if(env.getProperty("DEMO_MYSQL_PORT_3306_TCP_ADDR") == null){
-            url = env.getProperty("jdbc.url");
-        }else{
-            url = "jdbc:mysql://"+env.getProperty("DEMO_MYSQL_PORT_3306_TCP_ADDR")+":33306/LocalFarmersMarket";
-        }
-        System.out.println(url);
-        dataSource.setUrl(url);
+//        String url;
+//        if(env.getProperty("DEMO_MYSQL_PORT_3306_TCP_ADDR") == null){
+//            url = env.getProperty("jdbc.url");
+//        }else{
+//            url = "jdbc:mysql://"+env.getProperty("DEMO_MYSQL_PORT_3306_TCP_ADDR")+":33306/LocalFarmersMarket";
+//        }
+//        System.out.println(url);
+        dataSource.setUrl(env.getProperty("jdbc.url"));
         dataSource.setUsername(env.getProperty("jdbc.user"));
         dataSource.setPassword(env.getProperty("jdbc.pass"));
         return dataSource;
